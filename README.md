@@ -30,9 +30,11 @@ mosquitto_pub -d -t test -m "Hello, World!"
 ```
 sudo apt-get install -y python3-venv
 ```
-- install:
+- install (assumes the `pi` user and group):
 ```
 [ -d /srv ] || sudo mkdir /srv
+sudo mkdir /srv/mq2anno
+sudo chown pi:pi /srv/mq2anno
 sudo apt-get install -y git
 git clone https://github.com/vladak/mq2anno /srv/mq2anno
 cd /srv/mq2anno
@@ -58,6 +60,10 @@ pip install -r requirements.txt
 - configure the service: create `/srv/mq2anno/environment` file and setup these environment variables inside:
   - `ARGS`: arguments to the `mq2anno` program
     - the `-H`, `-U` and MQTT broker hostname/port arguments are required
+  - the file can look like this (no double quotes):
+```
+ARGS=-U http://localhost:3000 -t "workmon/blink" -l debug localhost 1883
+```
 - setup the service (assumes the `pi` user)
 ```
   sudo cp /srv/mq2anno/mq2anno.service /etc/systemd/system/
