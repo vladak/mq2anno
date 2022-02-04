@@ -4,6 +4,7 @@ subscribe to MQTT events and turn them into Grafana annotations
 """
 
 import argparse
+import copy
 import json
 import logging
 import sys
@@ -28,7 +29,7 @@ def on_connect(client, userdata, flags, ret_code):
     :param client:
     :param userdata:
     :param flags:
-    :param rc:
+    :param ret_code:
     :return:
     """
     logger = logging.getLogger(__name__)
@@ -36,7 +37,7 @@ def on_connect(client, userdata, flags, ret_code):
     if ret_code == 0:
         logger.info("Connected to MQTT broker")
     else:
-        logger.error(f"Connected to MQTT broker failed with code {ret_code}")
+        logger.error(f"Connect to MQTT broker failed with code {ret_code}")
         raise FatalError("cannot connect to MQTT broker")
 
     logger.info(f"Subscribing to topic {userdata.topic}")
@@ -63,12 +64,11 @@ def create_annotation(userdata, tag):
     """
     :param userdata: Userdata instance
     :param tag: string tag
-    :return:
     """
 
     logger = logging.getLogger(__name__)
 
-    payload = userdata.payload
+    payload = copy.deepcopy(userdata.payload)
     time_start = int(time.time() * 1000)
     payload["time"] = int(time_start)
     payload["timeEnd"] = int(time_start) + 500
