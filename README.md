@@ -5,6 +5,9 @@ convert MQTT events to Grafana annotations
 ## Grafana
 
 - Generate API key
+
+## MQTT broker
+
 - Install Mosquito MQTT broker:
 ```
 sudo apt install -y mosquitto mosquitto-clients
@@ -29,7 +32,7 @@ sudo apt-get install -y python3-venv
 ```
 - install:
 ```
-sudo mkdir /srv
+[ -d /srv ] || sudo mkdir /srv
 sudo apt-get install -y git
 git clone https://github.com/vladak/mq2anno /srv/mq2anno
 cd /srv/mq2anno
