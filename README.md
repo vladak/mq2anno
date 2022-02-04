@@ -1,3 +1,5 @@
+[![Python checks](https://github.com/vladak/mq2anno/actions/workflows/python-checks.yml/badge.svg)](https://github.com/vladak/mq2anno/actions/workflows/python-checks.yml)
+
 # mq2anno
 
 convert MQTT events to Grafana annotations
