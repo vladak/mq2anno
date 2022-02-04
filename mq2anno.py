@@ -20,8 +20,8 @@ def main():
     parser.add_argument(
         "-H",
         "--headers",
-	required=True,
-	default="headers.json",
+        required=True,
+        default="headers.json",
         help="JSON file with headers",
     )
     parser.add_argument(
@@ -33,16 +33,16 @@ def main():
     )
     parser.add_argument(
         "-U",
-	dest='grafana_url',
-	required=True,
+        dest="grafana_url",
+        required=True,
         help="base URL for the Grafana server",
     )
     parser.add_argument(
-	'mqtt_hostname',
+        "mqtt_hostname",
         help="hostname of the MQTT broker",
     )
     parser.add_argument(
-	'mqtt_port',
+        "mqtt_port",
         help="port of the MQTT broker",
     )
     args = parser.parse_args()
