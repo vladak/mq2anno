@@ -39,6 +39,7 @@ def on_connect(client, userdata, flags, ret_code):
         logger.error(f"Connected to MQTT broker failed with code {ret_code}")
         raise FatalError("cannot connect to MQTT broker")
 
+    logger.info(f"Subscribing to topic {userdata.topic}")
     client.subscribe(userdata.topic)
 
 
