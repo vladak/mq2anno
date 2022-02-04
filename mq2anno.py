@@ -3,11 +3,12 @@
 subscripe to MQTT events and turn them into Grafana annotations
 """
 
-import logging
 import argparse
 import json
-import requests
+import logging
 import sys
+
+import requests
 
 from logutil import LogLevelAction
 
