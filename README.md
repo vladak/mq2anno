@@ -8,7 +8,7 @@ Assumes working MQTT broker such as [Mosquitto](https://github.com/eclipse/mosqu
 
 ## Grafana
 
-- Generate API key
+- Generate API key in the Configuration -> API keys 
 
 ## Install and setup
 
