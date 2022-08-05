@@ -4,27 +4,11 @@
 
 convert MQTT events to Grafana annotations. Basically each message received on given topic will be converted to Grafana annotation with the message content used as tag. The rest of the message is determined on the fly (time) or using a template.
 
+Assumes working MQTT broker.
+
 ## Grafana
 
 - Generate API key
-
-## MQTT broker
-
-- Install Mosquito MQTT broker:
-```
-sudo apt install -y mosquitto mosquitto-clients
-cat << EOF | sudo tee /etc/mosquitto/conf.d/local.conf
-allow_anonymous true
-listener 1883
-EOF
-sudo systemctl restart mosquitto
-systemctl status mosquitto
-```
-- Test basic MQTT functionality:
-```
-mosquitto_sub -d -t test
-mosquitto_pub -d -t test -m "Hello, World!"
-```
 
 ## Install and setup
 
