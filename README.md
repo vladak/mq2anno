@@ -4,7 +4,7 @@
 
 convert MQTT events to Grafana annotations. Basically each message received on given topic will be converted to Grafana annotation with the message content used as tag. The rest of the message is determined on the fly (time) or using a template.
 
-Assumes working MQTT broker.
+Assumes working MQTT broker such as [Mosquitto](https://github.com/eclipse/mosquitto).
 
 ## Grafana
 
