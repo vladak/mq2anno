@@ -151,13 +151,6 @@ def main():
         topic_config = json.load(file_handle)
         logger.debug(f"Got config: {topic_config}")
 
-    # Check that each specific topic has a payload template in the configuration.
-    # The contents of the template are not checked.
-    logger.debug(f"Checking configuration for topics {args.topic}")
-    for topic in args.topic:
-        if topic not in topic_config.keys():
-            raise FatalError(f"no configuration for topic '{topic}'")
-
     client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
     user_data = Userdata(topic_config, args.grafana_url, headers)
     client.user_data_set(user_data)
@@ -172,7 +165,7 @@ def main():
     except OSError as exc:
         raise FatalError("MQTT connect error") from exc
 
-    for topic in args.topic:
+    for topic in topic_config.keys():
         logger.info(f"Subscribing to topic {topic}")
         client.subscribe(topic)
 
@@ -207,13 +200,6 @@ def handle_args():
         dest="grafana_url",
         required=True,
         help="base URL for the Grafana server",
-    )
-    parser.add_argument(
-        "-t",
-        "--topic",
-        required=True,
-        action="append",
-        help="MQTT topic to subscribe to",
     )
     parser.add_argument(
         "-c",

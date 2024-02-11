@@ -68,7 +68,7 @@ Messages with missing `tags` or `annotation` will be ignored. The `annotation` k
     - the `-H`, `-U` and MQTT broker hostname/port arguments are required
   - the file can look like this (no double quotes):
 ```
-ARGS=-U http://localhost:3000 -t "foo/bar" -c /srv/mq2anno/config.json -l debug localhost 1883
+ARGS=-U http://localhost:3000 -c /srv/mq2anno/config.json -l debug localhost 1883
 ```
 - setup the service (assumes the `pi` user)
 ```
