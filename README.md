@@ -10,7 +10,7 @@ Assumes working MQTT broker such as [Mosquitto](https://github.com/eclipse/mosqu
 
 - Generate API key in the Configuration -> API keys 
 
-## Install and setup
+## Install
 
 - pre-requisites:
 ```
@@ -28,6 +28,9 @@ python3 -m venv env
 . ./env/bin/activate
 pip install -r requirements.txt
 ```
+
+## Configuration
+
 - create the `/srv/mq2anno/headers.json` file. This JSON file will contain the headers sent with the Grafna API requests. Use the Grafana API key to setup the `Authorization` header. It may look like this:
 ```json
 {
@@ -35,20 +38,37 @@ pip install -r requirements.txt
   "Authorization": "Bearer <ENTER_THE_API_KEY_HERE>"
 }
 ```
-- create the `/srv/mq2anno/payload.json` file. This JSON file can look like this:
+- create the `/srv/mq2anno/config.json` file. This JSON is keyed by MQTT topic. The value is a dictionary that must contain `dashboard` value.
+Example of the configuration can look like this:
 ```json
 {
-  "dashboardId":4,
-  "tags":["tag1","tag2"],
-  "text":"Annotation Description"
+  "foo/bar": {
+    "dashboardUID": "jcIIG-07z",
+    "tags": ["tag1", "tag2"],
+    "text": "Annotation Description"
+  }
 }
 ```
+
+This configuration matches the key/values of the [Grafana Annotation API](https://grafana.com/docs/grafana/latest/developers/http_api/annotations/#create-annotation).
+The time values will be added automatically.
+The list of tags, will be augmented or created from scratch (if it is not configured) with the tags received in the MQTT message for given topic.
+
+The payload sent to the MQTT topics should contain non-empty list of tags, e.g.:
+```json
+{"annotation": true, "tags": ["foo", "bar"]}
+```
+
+Messages with missing `tags` or `annotation` will be ignored. The `annotation` key allows to reuse the same topic for multiple message types.
+
+## Setup
+
 - configure the service: create `/srv/mq2anno/environment` file and setup these environment variables inside:
   - `ARGS`: arguments to the `mq2anno` program
     - the `-H`, `-U` and MQTT broker hostname/port arguments are required
   - the file can look like this (no double quotes):
 ```
-ARGS=-U http://localhost:3000 -t "workmon/blink" -l debug localhost 1883
+ARGS=-U http://localhost:3000 -t "foo/bar" -c /srv/mq2anno/config.json -l debug localhost 1883
 ```
 - setup the service (assumes the `pi` user)
 ```
