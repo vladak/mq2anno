@@ -23,7 +23,7 @@ class FatalError(Exception):
 
 
 # pylint: disable=unused-argument
-def on_connect(client, userdata, flags, ret_code):
+def on_connect(client, userdata, flags, ret_code, properties):
     """
     called on MQTT connect
     :param client:
@@ -168,7 +168,7 @@ def main():
         payload = json.load(file_handle)
         logger.debug(f"Got payload: {payload}")
 
-    client = mqtt.Client()
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
     user_data = Userdata(args.topic, args.grafana_url, payload, headers)
     client.user_data_set(user_data)
     client.on_connect = on_connect
