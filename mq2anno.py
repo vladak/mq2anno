@@ -79,7 +79,7 @@ def create_annotation(userdata, tag):
     payload_str = json.dumps(payload)
     logger.debug(f"posting {payload_str} with {userdata.headers} to {url}")
     try:
-        response = requests.post(url, data=payload_str, headers=userdata.headers)
+        response = requests.post(url, data=payload_str, headers=userdata.headers, timeout=3)
         if response.status_code != 200:
             logger.error(f"Failed to post {payload_str} to {url}: {response.text}")
     except requests.exceptions.ConnectionError as exc:
