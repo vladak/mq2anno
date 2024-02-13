@@ -69,12 +69,12 @@ def on_message(client, userdata, msg):
         if tags and isinstance(tags, list):
             try:
                 create_annotation(userdata, msg.topic, tags)
-            except ValueError as e:
-                logger.error(f"cannot create annotation for {msg.topic}: {e}")
+            except ValueError as value_err:
+                logger.error(f"cannot create annotation for {msg.topic}: {value_err}")
         else:
             logger.warning(f"{msg.payload} does not contain list of tags")
-    except JSONDecodeError as e:
-        logger.warning(f"cannot decode '{msg.payload}' as JSON: {e}")
+    except JSONDecodeError as json_err:
+        logger.warning(f"cannot decode '{msg.payload}' as JSON: {json_err}")
 
 
 def create_annotation(userdata, topic, tags):
