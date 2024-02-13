@@ -2,10 +2,10 @@
 MQTT payload handling tests
 """
 import json
-
 import unittest
 from unittest.mock import MagicMock, Mock, patch
-from mq2anno import on_message, Userdata
+
+from mq2anno import Userdata, on_message
 
 
 class TestPayloadHandling(unittest.TestCase):
