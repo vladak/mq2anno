@@ -88,9 +88,9 @@ def create_annotation(userdata, topic, tags):
 
     logger = logging.getLogger(__name__)
 
-    payload_template = userdata.get(topic)
+    payload_template = userdata.topic_config.get(topic)
     payload = copy.deepcopy(
-        payload_template.payload
+        payload_template
     )  # use deepcopy to avoid changing the configuration
     time_start = int(time.time() * 1000)
     payload["time"] = int(time_start)
