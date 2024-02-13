@@ -11,7 +11,6 @@ from mq2anno import on_message, Userdata
 class TestPayloadHandling(unittest.TestCase):
     """payload handling tests"""
 
-    # pylint: disable=no-self-use
     @patch("mq2anno.requests")
     def test_payload_processing(self, mock_requests):
         """
