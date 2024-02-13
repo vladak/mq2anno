@@ -66,7 +66,7 @@ def on_message(client, userdata, msg):
             return
 
         tags = p.get("tags")
-        if tags is None and isinstance(tags, list):
+        if tags is None or not isinstance(tags, list):
             try:
                 create_annotation(userdata, msg.topic, tags)
             except ValueError as e:
