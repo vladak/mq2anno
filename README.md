@@ -65,7 +65,8 @@ Messages with missing `tags` or `annotation` will be ignored. The `annotation` k
 
 - configure the service: create `/srv/mq2anno/environment` file and setup these environment variables inside:
   - `ARGS`: arguments to the `mq2anno` program
-    - the `-H`, `-U` and MQTT broker hostname/port arguments are required
+    - the `-U` and MQTT broker hostname/port arguments are required
+    - also requires the HTTP headers (`-H`) and configuration files (`-c`), however these have defaults
   - the file can look like this (no double quotes):
 ```
 ARGS=-U http://localhost:3000 -c /srv/mq2anno/config.json -l debug localhost 1883
